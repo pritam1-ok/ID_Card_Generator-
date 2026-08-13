@@ -3,75 +3,131 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HH Goa 2026 - Generator Workspace</title>
+  <title>HH Goa 2026 - Culture & Code Edition</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/heic2any"></script>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
+  
   <style>
-    .bg-grid {
-      background-size: 40px 40px;
-      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                        linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    .bg-canvas-area {
+      background: linear-gradient(135deg, #022c15 0%, #064020 40%, #c26102 100%);
     }
+    
+    .bg-dots {
+      background-image: radial-gradient(rgba(255,255,255,0.1) 2px, transparent 2px);
+      background-size: 40px 40px;
+    }
+
     @media (min-width: 768px) {
-      ::-webkit-scrollbar { display: none; }
+      ::-webkit-scrollbar { width: 6px; }
+      ::-webkit-scrollbar-track { background: #042614; }
+      ::-webkit-scrollbar-thumb { background: #FDE047; border-radius: 4px; }
     }
   </style>
 </head>
-<body class="min-h-screen w-full md:h-screen md:overflow-hidden bg-[#03150b] text-neutral-200 flex flex-col md:flex-row font-sans selection:bg-[#EC4899] selection:text-white">
+<body class="min-h-screen w-full md:h-screen md:overflow-hidden bg-[#042614] text-neutral-200 flex flex-col md:flex-row font-['Space_Grotesk'] selection:bg-[#EC4899] selection:text-white">
 
   <!-- Left Sidebar Controls -->
-  <aside class="w-full md:w-[400px] md:h-full bg-[#051c0e] border-b md:border-b-0 md:border-r border-white/10 flex flex-col z-10 flex-shrink-0">
-    <div class="p-6 border-b border-white/10">
-      <h1 class="text-2xl font-black text-[#FDE047] tracking-tight uppercase">HH Goa 2026</h1>
-      <p class="text-xs text-neutral-400 mt-1 uppercase tracking-widest font-semibold">Badge Generator</p>
+  <aside class="w-full md:w-[450px] md:h-full bg-[#042614] border-b md:border-b-0 md:border-r-2 border-dashed border-[#095d33] flex flex-col z-10 flex-shrink-0 shadow-[10px_0_30px_rgba(0,0,0,0.5)] relative">
+    
+    <div class="absolute inset-2 border border-dashed border-[#095d33] pointer-events-none rounded"></div>
+
+    <div class="p-8 border-b border-[#095d33] relative z-10 text-center flex flex-col items-center justify-center">
+      <div class="relative inline-block text-center mb-2 mt-2">
+        <h1 class="text-[2.75rem] font-black text-[#FDE047] uppercase font-['Playfair_Display'] leading-[0.8] tracking-widest drop-shadow-md">HACKER<br>HOUSE</h1>
+        <span class="absolute top-1/2 left-1/2 text-[2.5rem] font-black text-[#EC4899]" style="font-family: 'Space Grotesk', sans-serif; -webkit-text-stroke: 1.5px #FDE047; transform: translate(-50%, -15%) rotate(-5deg); text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">गोवा</span>
+      </div>
+      <p class="text-xs text-[#a3e635] mt-3 uppercase tracking-widest font-bold">Culture & Code Edition</p>
     </div>
 
-    <div class="p-6 flex-grow md:flex-1 flex flex-col gap-6 md:overflow-y-auto">
-      <div class="bg-black/50 p-1 rounded-lg flex gap-1 border border-white/5">
-        <button id="btnFormatA" onclick="setFormat('A')" class="flex-1 py-2 rounded font-bold text-sm bg-[#FDE047] text-[#0B4627] shadow transition-colors">Frame (A)</button>
-        <button id="btnFormatB" onclick="setFormat('B')" class="flex-1 py-2 rounded font-bold text-sm text-neutral-400 hover:text-white transition-colors">ID Card (B)</button>
+    <div class="p-8 flex-grow md:flex-1 flex flex-col gap-8 md:overflow-y-auto relative z-10">
+      
+      <div class="flex gap-3">
+        <button id="btnFormatA" onclick="setFormat('A')" class="flex-1 py-3 rounded border-2 border-[#FDE047] font-bold text-sm bg-gradient-to-r from-[#FDE047] to-[#f59e0b] text-black shadow-lg transition-colors uppercase tracking-wide">Trio Frame (A)</button>
+        <button id="btnFormatB" onclick="setFormat('B')" class="flex-1 py-3 rounded border-2 border-[#095d33] font-bold text-sm text-[#FDE047] hover:border-[#FDE047] transition-all uppercase tracking-wide">Scalloped ID (B)</button>
       </div>
 
       <div>
-        <label class="block text-xs uppercase tracking-widest text-neutral-500 font-bold mb-2">Source Image</label>
-        <button onclick="document.getElementById('upload').click()" class="w-full flex items-center justify-center gap-2 border border-dashed border-[#FDE047]/30 bg-[#FDE047]/5 hover:bg-[#FDE047]/10 text-[#FDE047] py-4 rounded-lg font-semibold text-sm transition-colors">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-          <span id="dropText">Upload Photo (JPG/PNG/HEIC)</span>
+        <label class="block text-xs uppercase tracking-widest text-[#FDE047] font-bold mb-3 text-center">Upload Assets (Max 3)</label>
+        <button onclick="document.getElementById('upload').click()" class="w-full flex flex-col items-center justify-center gap-3 border-2 border-dashed border-[#a3e635] bg-[#021f10] hover:bg-[#06331a] text-[#FDE047] py-8 rounded-lg font-bold text-sm transition-all shadow-inner">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+          <span id="dropText">Photos Attached (0/3)</span>
         </button>
-        <input type="file" id="upload" accept="image/jpeg, image/png, image/heic, .heic" onchange="handleFileSelect(event)" class="hidden">
+        <input type="file" id="upload" accept="image/jpeg, image/png, image/heic, .heic" multiple onchange="handleFileSelect(event)" class="hidden">
       </div>
 
-      <div id="formatB-fields" class="space-y-4 hidden">
+      <div id="formatB-fields" class="space-y-4 hidden mt-2">
         <div>
-          <label class="block text-xs uppercase tracking-widest text-neutral-500 font-bold mb-2">Identity Details</label>
-          <div class="space-y-3">
-            <input type="text" id="name" placeholder="YOUR NAME" oninput="drawCanvas()" class="w-full bg-black/40 border border-white/10 text-white placeholder-neutral-600 px-3 py-2.5 rounded-lg focus:border-[#FDE047] outline-none font-bold uppercase text-sm">
-            <input type="text" id="role" placeholder="ROLE / STACK" oninput="drawCanvas()" class="w-full bg-black/40 border border-white/10 text-white placeholder-neutral-600 px-3 py-2.5 rounded-lg focus:border-[#FDE047] outline-none font-bold uppercase text-sm">
-            <input type="text" id="title" placeholder="ID: 123 456 789" oninput="drawCanvas()" class="w-full bg-black/40 border border-white/10 text-white placeholder-neutral-600 px-3 py-2.5 rounded-lg focus:border-[#FDE047] outline-none font-bold uppercase text-sm">
+          <label class="block text-xs uppercase tracking-widest text-[#FDE047] font-bold mb-4 text-center">Identity Details</label>
+          <div class="space-y-4">
+            <input type="text" id="name" value="PRITAM KUMAR GHOSH" oninput="drawCanvas()" class="w-full bg-[#021f10] border border-[#095d33] text-white px-4 py-3 rounded focus:border-[#FDE047] outline-none font-bold uppercase text-sm tracking-wide text-center">
+            <input type="text" id="team" value="RIDERS" oninput="drawCanvas()" class="w-full bg-[#021f10] border border-[#095d33] text-[#FDE047] px-4 py-3 rounded focus:border-[#FDE047] outline-none font-bold uppercase text-sm tracking-wide text-center">
+            <input type="text" id="stack" value="MERN STACK & JAVA" oninput="drawCanvas()" class="w-full bg-[#021f10] border border-[#095d33] text-[#a3e635] px-4 py-3 rounded focus:border-[#FDE047] outline-none font-bold uppercase text-sm tracking-wide text-center">
+            <input type="text" id="title" value="ID: 123 456 789" oninput="drawCanvas()" class="w-full bg-[#021f10] border border-[#095d33] text-white px-4 py-3 rounded focus:border-[#FDE047] outline-none font-bold uppercase text-sm tracking-wide text-center">
           </div>
         </div>
       </div>
     </div>
 
-    <div class="p-6 border-t border-white/10 bg-[#051c0e] flex gap-3 sticky bottom-0 z-20">
-      <button onclick="downloadImage()" class="flex-1 bg-[#FDE047] hover:bg-yellow-400 text-[#0B4627] font-bold py-3 rounded-lg text-sm transition-colors shadow-lg">Export PNG</button>
-      <button onclick="shareToX()" class="flex-1 bg-neutral-900 hover:bg-black text-white border border-neutral-700 font-bold py-3 rounded-lg text-sm transition-colors shadow-lg">Share to X</button>
+    <div class="p-8 border-t border-[#095d33] bg-[#042614] flex gap-4 sticky bottom-0 z-20">
+      <button onclick="downloadImage()" class="flex-1 bg-gradient-to-r from-[#FDE047] to-[#f59e0b] hover:brightness-110 text-black font-black py-4 rounded-lg text-sm transition-all shadow-[0_0_15px_rgba(253,224,71,0.2)] uppercase tracking-widest">Export</button>
+      <button onclick="shareToX()" class="flex-1 bg-[#021f10] hover:bg-black text-[#FDE047] border-2 border-[#095d33] font-bold py-4 rounded-lg text-sm transition-colors uppercase tracking-wide">Share to X</button>
     </div>
   </aside>
 
   <!-- Right Main Area Preview -->
-  <main class="flex-1 w-full min-h-[600px] md:h-full bg-[#03150b] bg-grid flex flex-col relative overflow-hidden">
-    <div class="absolute top-0 w-full h-1 bg-gradient-to-r from-[#0B4627] via-[#FDE047] to-[#EC4899]"></div>
+  <main class="flex-1 w-full min-h-[600px] md:h-full bg-canvas-area flex flex-col relative overflow-hidden">
     
-    <div class="flex-1 w-full h-full p-4 md:p-8 flex items-center justify-center relative">
-      <div id="placeholderText" class="text-neutral-600 flex flex-col items-center gap-2">
-        <svg class="w-8 h-8 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-        <span class="text-sm font-semibold tracking-widest uppercase">Awaiting Image Input</span>
+    <!-- DYNAMIC BACKGROUND RANGOLIS -->
+    <svg class="absolute top-[-15%] left-[-5%] w-[50vw] h-[50vw] min-w-[400px] min-h-[400px] text-[#FDE047] opacity-[0.07] animate-[spin_60s_linear_infinite] pointer-events-none z-0" viewBox="0 0 100 100">
+      <g fill="currentColor">
+        <circle cx="50" cy="50" r="4" />
+        <!-- 8-Petal Rangoli Design -->
+        <path d="M50 10 Q65 30 50 42 Q35 30 50 10 Z" />
+        <path d="M50 10 Q65 30 50 42 Q35 30 50 10 Z" transform="rotate(45 50 50)" />
+        <path d="M50 10 Q65 30 50 42 Q35 30 50 10 Z" transform="rotate(90 50 50)" />
+        <path d="M50 10 Q65 30 50 42 Q35 30 50 10 Z" transform="rotate(135 50 50)" />
+        <path d="M50 10 Q65 30 50 42 Q35 30 50 10 Z" transform="rotate(180 50 50)" />
+        <path d="M50 10 Q65 30 50 42 Q35 30 50 10 Z" transform="rotate(225 50 50)" />
+        <path d="M50 10 Q65 30 50 42 Q35 30 50 10 Z" transform="rotate(270 50 50)" />
+        <path d="M50 10 Q65 30 50 42 Q35 30 50 10 Z" transform="rotate(315 50 50)" />
+        <!-- Outer Accents -->
+        <circle cx="50" cy="3" r="2" /><circle cx="50" cy="3" r="2" transform="rotate(45 50 50)" />
+        <circle cx="50" cy="3" r="2" transform="rotate(90 50 50)" /><circle cx="50" cy="3" r="2" transform="rotate(135 50 50)" />
+        <circle cx="50" cy="3" r="2" transform="rotate(180 50 50)" /><circle cx="50" cy="3" r="2" transform="rotate(225 50 50)" />
+        <circle cx="50" cy="3" r="2" transform="rotate(270 50 50)" /><circle cx="50" cy="3" r="2" transform="rotate(315 50 50)" />
+      </g>
+    </svg>
+
+    <svg class="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] min-w-[500px] min-h-[500px] text-[#EC4899] opacity-[0.06] animate-[spin_80s_linear_infinite_reverse] pointer-events-none z-0" viewBox="0 0 100 100">
+      <g fill="currentColor">
+        <circle cx="50" cy="50" r="6" />
+        <path d="M50 5 Q70 25 50 40 Q30 25 50 5 Z" />
+        <path d="M50 5 Q70 25 50 40 Q30 25 50 5 Z" transform="rotate(60 50 50)" />
+        <path d="M50 5 Q70 25 50 40 Q30 25 50 5 Z" transform="rotate(120 50 50)" />
+        <path d="M50 5 Q70 25 50 40 Q30 25 50 5 Z" transform="rotate(180 50 50)" />
+        <path d="M50 5 Q70 25 50 40 Q30 25 50 5 Z" transform="rotate(240 50 50)" />
+        <path d="M50 5 Q70 25 50 40 Q30 25 50 5 Z" transform="rotate(300 50 50)" />
+      </g>
+    </svg>
+
+    <div class="absolute inset-0 bg-dots z-0"></div>
+    
+    <svg class="absolute bottom-0 w-full h-48 text-[#095d33] opacity-50 pointer-events-none z-0" viewBox="0 0 1000 200" preserveAspectRatio="none">
+      <path fill="currentColor" d="M0,200 L0,150 L40,150 L40,100 Q90,30 140,100 L140,150 L240,150 L240,120 A40,40 0 0,1 320,120 L320,150 L380,150 L380,70 C380,-10 620,-10 620,70 L620,150 L680,150 L680,120 A40,40 0 0,1 760,120 L760,150 L860,150 L860,100 Q910,30 960,100 L960,150 L1000,150 L1000,200 Z" />
+    </svg>
+
+    <div class="absolute top-0 w-full h-1 bg-gradient-to-r from-[#0b4627] via-[#FDE047] to-[#EC4899] z-10"></div>
+    
+    <div class="flex-1 w-full h-full p-4 md:p-12 flex items-center justify-center relative z-20">
+      <div id="placeholderText" class="text-[#FDE047] flex flex-col items-center gap-3 bg-[#042614]/80 p-8 rounded-2xl backdrop-blur-md border border-[#FDE047]/30 shadow-2xl">
+        <svg class="w-12 h-12 text-[#EC4899]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+        <span class="text-sm font-bold tracking-[0.2em] uppercase font-['Playfair_Display']">Awaiting Assets</span>
       </div>
-      <canvas id="canvas" class="hidden max-w-full max-h-[500px] md:max-h-full object-contain drop-shadow-2xl rounded shadow-[0_0_50px_rgba(0,0,0,0.5)]"></canvas>
+      <canvas id="canvas" class="hidden max-w-full max-h-[600px] md:max-h-[95%] object-contain drop-shadow-2xl shadow-[0_20px_50px_rgba(0,0,0,0.7)] rounded"></canvas>
     </div>
   </main>
 
@@ -80,202 +136,381 @@
     const ctx = canvas.getContext('2d');
     const dropText = document.getElementById('dropText');
     let currentFormat = 'A'; 
-    let userImage = null;
+    let userImages = []; 
 
-    const COLORS = { bg: '#0B4627', gold: '#FDE047', pink: '#EC4899', white: '#FFFFFF' };
+    const THEME = {
+      darkGreen: '#042614',
+      lightGreen: '#a3e635',
+      yellow: '#FDE047',
+      pink: '#EC4899',
+      white: '#FFFFFF'
+    };
 
     function setFormat(format) {
       currentFormat = format;
       document.getElementById('formatB-fields').style.display = format === 'B' ? 'block' : 'none';
       
-      const activeClass = "flex-1 py-2 rounded font-bold text-sm bg-[#FDE047] text-[#0B4627] shadow transition-colors";
-      const inactiveClass = "flex-1 py-2 rounded font-bold text-sm text-neutral-400 hover:text-white transition-colors";
+      const activeBtn = "flex-1 py-3 rounded border-2 border-[#FDE047] font-bold text-sm bg-gradient-to-r from-[#FDE047] to-[#f59e0b] text-black shadow-lg transition-colors uppercase tracking-wide";
+      const inactiveBtn = "flex-1 py-3 rounded border-2 border-[#095d33] font-bold text-sm text-[#FDE047] hover:border-[#FDE047] transition-all uppercase tracking-wide";
       
-      document.getElementById('btnFormatA').className = format === 'A' ? activeClass : inactiveClass;
-      document.getElementById('btnFormatB').className = format === 'B' ? activeClass : inactiveClass;
+      document.getElementById('btnFormatA').className = format === 'A' ? activeBtn : inactiveBtn;
+      document.getElementById('btnFormatB').className = format === 'B' ? activeBtn : inactiveBtn;
       drawCanvas();
     }
 
-    function handleFileSelect(e) {
-      if (e.target.files.length) processFile(e.target.files[0]);
-    }
-
-    async function processFile(file) {
-      let blob = file;
-      if (file.name.toLowerCase().endsWith('.heic') || file.type === 'image/heic') {
-        dropText.innerText = "Converting HEIC...";
-        try { blob = await heic2any({ blob: file, toType: 'image/jpeg' }); } 
-        catch (err) { return alert("HEIC conversion failed."); }
-        finally { dropText.innerText = "Upload Photo (JPG/PNG/HEIC)"; }
+    async function handleFileSelect(e) {
+      if (!e.target.files.length) return;
+      dropText.innerText = "Processing...";
+      userImages = [];
+      
+      const files = Array.from(e.target.files).slice(0, 3);
+      
+      for (let file of files) {
+        let blob = file;
+        if (file.name.toLowerCase().endsWith('.heic') || file.type === 'image/heic') {
+          try { blob = await heic2any({ blob: file, toType: 'image/jpeg' }); } 
+          catch (err) { console.error("HEIC conversion failed"); }
+        }
+        
+        await new Promise((resolve) => {
+          const img = new Image();
+          img.onload = () => {
+            userImages.push(img);
+            resolve();
+          };
+          img.src = URL.createObjectURL(blob);
+        });
       }
       
-      const img = new Image();
-      img.onload = () => {
-        userImage = img;
-        canvas.classList.remove('hidden');
-        document.getElementById('placeholderText').classList.add('hidden');
-        dropText.innerText = "Change Image";
-        drawCanvas();
-        
-        if (window.innerWidth < 768) {
-          canvas.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      };
-      img.src = URL.createObjectURL(blob);
+      canvas.classList.remove('hidden');
+      document.getElementById('placeholderText').classList.add('hidden');
+      dropText.innerText = `Photos Attached (${userImages.length}/3)`;
+      drawCanvas();
     }
 
-    function drawWavyRect(x, y, width, height, amplitude, frequency, color, lineWidth) {
-      ctx.strokeStyle = color;
-      ctx.lineWidth = lineWidth;
-      ctx.beginPath();
-      for (let i = 0; i <= width; i += 5) { ctx.lineTo(x + i, y - Math.sin(i * frequency) * amplitude); }
-      for (let i = 0; i <= height; i += 5) { ctx.lineTo(x + width + Math.sin(i * frequency) * amplitude, y + i); }
-      for (let i = width; i >= 0; i -= 5) { ctx.lineTo(x + i, y + height + Math.sin(i * frequency) * amplitude); }
-      for (let i = height; i >= 0; i -= 5) { ctx.lineTo(x - Math.sin(i * frequency) * amplitude, y + i); }
-      ctx.closePath();
-      ctx.stroke();
-    }
-
-    function drawCross(x, y, size, color) {
-      ctx.strokeStyle = color; ctx.lineWidth = 4; ctx.beginPath();
-      ctx.moveTo(x - size, y); ctx.lineTo(x + size, y);
-      ctx.moveTo(x, y - size); ctx.lineTo(x, y + size); ctx.stroke();
-    }
-
-    function drawWaves(yOffset, color) {
-      ctx.strokeStyle = color; ctx.lineWidth = 2;
-      for (let i = 0; i < 5; i++) {
-        ctx.beginPath(); ctx.moveTo(0, yOffset + (i * 20));
-        ctx.bezierCurveTo(300, yOffset - 100 + (i * 20), 700, yOffset + 200 + (i * 20), 1080, yOffset + (i * 20));
-        ctx.stroke();
-      }
-    }
-
-    function fillTextAutoFit(ctx, text, x, y, maxWidth, maxFontSize, fontModifiers = "bold") {
+    function fillTextAutoFit(ctx, text, x, y, maxWidth, maxFontSize, fontModifiers = "bold", fontFamily = "Space Grotesk") {
       let fontSize = maxFontSize;
-      ctx.font = `${fontModifiers} ${fontSize}px sans-serif`;
-      while (ctx.measureText(text).width > maxWidth && fontSize > 20) {
+      ctx.font = `${fontModifiers} ${fontSize}px "${fontFamily}"`;
+      while (ctx.measureText(text).width > maxWidth && fontSize > 15) {
         fontSize -= 2;
-        ctx.font = `${fontModifiers} ${fontSize}px sans-serif`;
+        ctx.font = `${fontModifiers} ${fontSize}px "${fontFamily}"`;
       }
       ctx.fillText(text, x, y);
     }
 
+    function drawArtificialBarcode(ctx, x, y, width, height, color) {
+      ctx.fillStyle = color;
+      let currentX = x;
+      let i = 0;
+      while (currentX < x + width) {
+        let barWidth = ((i * 17) % 5) + 1; 
+        if (currentX + barWidth > x + width) barWidth = (x + width) - currentX;
+        if ((i * 13) % 10 > 2) ctx.fillRect(currentX, y, barWidth, height);
+        currentX += barWidth + (((i * 7) % 3) + 2); 
+        i++;
+      }
+      ctx.font = 'bold 12px "Space Grotesk"';
+      ctx.textAlign = 'center';
+      ctx.fillText("SN: 858941374", x + width/2, y + height + 15);
+    }
+
+    function draw3DCirclePhoto(ctx, img, x, y, radius) {
+      ctx.save();
+      ctx.translate(x, y);
+
+      ctx.shadowColor = 'rgba(0,0,0,0.6)';
+      ctx.shadowBlur = 20;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 15;
+
+      const grad = ctx.createLinearGradient(-radius, -radius, radius, radius);
+      grad.addColorStop(0, '#FDE047'); 
+      grad.addColorStop(0.5, '#f59e0b'); 
+      grad.addColorStop(1, '#b45309'); 
+      
+      ctx.beginPath();
+      ctx.arc(0, 0, radius + 15, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      ctx.shadowColor = 'transparent'; 
+
+      ctx.beginPath();
+      ctx.arc(0, 0, radius + 5, 0, Math.PI * 2);
+      ctx.fillStyle = '#EC4899';
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(0, 0, radius, 0, Math.PI * 2);
+      ctx.clip();
+
+      const scale = Math.max((radius * 2) / img.width, (radius * 2) / img.height);
+      const sw = img.width * scale;
+      const sh = img.height * scale;
+      ctx.drawImage(img, -sw/2, -sh/2, sw, sh);
+
+      ctx.restore();
+    }
+
+    function drawSolidLeaf(ctx, x, y, size, angle, color) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle);
+      ctx.scale(size/100, size/100);
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.moveTo(0, -40);
+      ctx.bezierCurveTo(40, -20, 40, 20, 0, 40);
+      ctx.bezierCurveTo(-40, 20, -40, -20, 0, -40);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawScallopedBorder(ctx, w, h, m, r, outerColor, innerColor) {
+        ctx.strokeStyle = outerColor;
+        ctx.lineWidth = 10;
+        ctx.strokeRect(m - 30, m - 30, w - (m*2) + 60, h - (m*2) + 60);
+
+        ctx.setLineDash([8, 12]);
+        ctx.lineWidth = 6;
+        ctx.strokeStyle = innerColor;
+        ctx.strokeRect(m - 15, m - 15, w - (m*2) + 30, h - (m*2) + 30);
+        ctx.setLineDash([]); 
+
+        ctx.strokeStyle = outerColor;
+        ctx.lineWidth = 6;
+        ctx.beginPath();
+        ctx.moveTo(m + r, m);
+        ctx.lineTo(w/2 - r, m);
+        ctx.arc(w/2, m, r, Math.PI, 0, true); 
+        ctx.lineTo(w - m - r, m);
+        ctx.arc(w - m, m, r, Math.PI, Math.PI/2, true); 
+        ctx.lineTo(w - m, h/2 - r);
+        ctx.arc(w - m, h/2, r, -Math.PI/2, Math.PI/2, true); 
+        ctx.lineTo(w - m, h - m - r);
+        ctx.arc(w - m, h - m, r, -Math.PI/2, Math.PI, true); 
+        ctx.lineTo(w/2 + r, h - m);
+        ctx.arc(w/2, h - m, r, 0, Math.PI, true); 
+        ctx.lineTo(m + r, h - m);
+        ctx.arc(m, h - m, r, 0, -Math.PI/2, true); 
+        ctx.lineTo(m, h/2 + r);
+        ctx.arc(m, h/2, r, Math.PI/2, -Math.PI/2, true); 
+        ctx.lineTo(m, m + r);
+        ctx.arc(m, m, r, Math.PI/2, 0, true); 
+        ctx.stroke();
+    }
+
+    function drawCanvasArchitecture(ctx, w, h, baseY, color) {
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(0, h);
+        ctx.lineTo(0, baseY);
+        
+        ctx.lineTo(w*0.05, baseY);
+        ctx.lineTo(w*0.05, baseY - 60);
+        ctx.quadraticCurveTo(w*0.1, baseY - 130, w*0.15, baseY - 60);
+        ctx.lineTo(w*0.15, baseY);
+        
+        ctx.lineTo(w*0.25, baseY);
+        ctx.lineTo(w*0.25, baseY - 70);
+        ctx.arc(w*0.3, baseY - 70, w*0.05, Math.PI, 0, false);
+        ctx.lineTo(w*0.35, baseY);
+        
+        ctx.lineTo(w*0.4, baseY);
+        ctx.lineTo(w*0.4, baseY - 120);
+        ctx.bezierCurveTo(w*0.4, baseY - 300, w*0.6, baseY - 300, w*0.6, baseY - 120);
+        ctx.lineTo(w*0.6, baseY);
+        
+        ctx.lineTo(w*0.65, baseY);
+        ctx.lineTo(w*0.65, baseY - 70);
+        ctx.arc(w*0.7, baseY - 70, w*0.05, Math.PI, 0, false);
+        ctx.lineTo(w*0.75, baseY);
+        
+        ctx.lineTo(w*0.85, baseY);
+        ctx.lineTo(w*0.85, baseY - 60);
+        ctx.quadraticCurveTo(w*0.9, baseY - 130, w*0.95, baseY - 60);
+        ctx.lineTo(w*0.95, baseY);
+
+        ctx.lineTo(w, baseY);
+        ctx.lineTo(w, h);
+        ctx.fill();
+    }
+
+    function drawOverlappingTitle(ctx, w, h, yOffset) {
+        ctx.textAlign = 'center';
+        
+        ctx.fillStyle = THEME.yellow; 
+        ctx.font = '900 130px "Playfair Display", serif'; 
+        ctx.fillText('HACKER', w / 2, yOffset); 
+        ctx.fillText('HOUSE', w / 2, yOffset + 100);
+        
+        ctx.save();
+        ctx.translate(w / 2, yOffset + 40); 
+        ctx.rotate(-5 * Math.PI / 180); 
+        
+        ctx.font = 'bold 110px "Space Grotesk", sans-serif';
+        
+        ctx.shadowColor = 'rgba(0,0,0,0.6)';
+        ctx.shadowBlur = 10;
+        ctx.shadowOffsetX = 4;
+        ctx.shadowOffsetY = 4;
+        
+        ctx.strokeStyle = THEME.yellow;
+        ctx.lineWidth = 10;
+        ctx.lineJoin = 'round';
+        ctx.strokeText('गोवा', 0, 0);
+        
+        ctx.shadowColor = 'transparent';
+        ctx.fillStyle = THEME.pink;
+        ctx.fillText('गोवा', 0, 0);
+        
+        ctx.restore();
+    }
+
     function drawCanvas() {
-      if (!userImage) return;
+      if (userImages.length === 0) return;
       
-      canvas.width = currentFormat === 'A' ? 1080 : 960; 
+      canvas.width = currentFormat === 'A' ? 1080 : 1080; 
       canvas.height = currentFormat === 'A' ? 1080 : 1712; 
-      
       const w = canvas.width, h = canvas.height;
       ctx.clearRect(0, 0, w, h);
 
       if (currentFormat === 'A') {
-        ctx.fillStyle = COLORS.bg; ctx.fillRect(0, 0, w, h);
-        const margin = 160; const photoSize = w - (margin * 2); const offset = margin;
+        // --- FORMAT A: TRIO FRAME (3D CIRCULAR PHOTOS) ---
         
-        const scale = Math.max(photoSize / userImage.width, photoSize / userImage.height);
-        const sw = userImage.width * scale, sh = userImage.height * scale;
+        const grad = ctx.createLinearGradient(0, 0, w, h);
+        grad.addColorStop(0, '#022c15');
+        grad.addColorStop(0.4, '#064020');
+        grad.addColorStop(1, '#c26102');
+        ctx.fillStyle = grad; 
+        ctx.fillRect(0, 0, w, h);
+
+        drawCanvasArchitecture(ctx, w, h, h - 60, 'rgba(0, 0, 0, 0.45)');
+        drawScallopedBorder(ctx, w, h, 60, 25, THEME.yellow, THEME.pink);
+
+        drawSolidLeaf(ctx, 160, 160, 110, -Math.PI/4, THEME.yellow);
+        drawSolidLeaf(ctx, w - 160, 190, 90, Math.PI/6, THEME.pink);
+        drawSolidLeaf(ctx, 130, h - 190, 120, -Math.PI/3, THEME.pink);
+        drawSolidLeaf(ctx, w - 190, h - 150, 130, Math.PI/4, THEME.yellow);
+
+        const baseRadius = 155;
+        if (userImages.length === 3) {
+            draw3DCirclePhoto(ctx, userImages[1], w/2 - 190, h/2 - 90, baseRadius * 0.9); 
+            draw3DCirclePhoto(ctx, userImages[2], w/2 + 190, h/2 - 90, baseRadius * 0.9);  
+            draw3DCirclePhoto(ctx, userImages[0], w/2, h/2 + 110, baseRadius * 1.05);                   
+        } else if (userImages.length === 2) {
+            draw3DCirclePhoto(ctx, userImages[0], w/2 - 180, h/2 + 10, baseRadius); 
+            draw3DCirclePhoto(ctx, userImages[1], w/2 + 180, h/2 + 10, baseRadius); 
+        } else {
+            draw3DCirclePhoto(ctx, userImages[0], w/2, h/2 + 20, baseRadius * 1.25); 
+        }
+
+        ctx.textAlign = 'center';
+        ctx.fillStyle = THEME.yellow;
+        ctx.font = 'bold 65px "Caveat", cursive';
+        ctx.shadowColor = 'rgba(0,0,0,0.8)'; ctx.shadowBlur = 15;
+        ctx.fillText("Code hard,", w/2, 130);
+        
+        ctx.fillStyle = THEME.white;
+        ctx.font = 'bold 90px "Caveat", cursive';
+        ctx.fillText("Vibe harder —", w/2, 210);
+        ctx.shadowColor = 'transparent';
+
+        drawOverlappingTitle(ctx, w, h, h - 220);
+        
+      } else {
+        // --- FORMAT B: SCALLOPED ID BADGE ---
+        ctx.fillStyle = THEME.darkGreen; 
+        ctx.fillRect(0, 0, w, h);
+
+        drawCanvasArchitecture(ctx, w, h, h - 60, 'rgba(0, 0, 0, 0.3)');
+        drawScallopedBorder(ctx, w, h, 60, 25, THEME.yellow, THEME.pink);
+
+        const m = 60;
+        drawSolidLeaf(ctx, m + 80, m + 80, 70, Math.PI/4, THEME.pink);
+        drawSolidLeaf(ctx, w - m - 80, m + 60, 60, -Math.PI/6, THEME.lightGreen);
+        drawSolidLeaf(ctx, m + 100, h - m - 200, 80, -Math.PI/4, THEME.lightGreen);
+        drawSolidLeaf(ctx, w - m - 100, h - m - 180, 90, Math.PI/6, THEME.pink);
+
+        const photoSize = 420, photoX = (w - photoSize) / 2, photoY = 160;
+        
+        ctx.fillStyle = THEME.pink; 
+        if(ctx.roundRect) {
+            ctx.beginPath(); ctx.roundRect(photoX + 20, photoY + 20, photoSize, photoSize, 40); ctx.fill();
+        } else {
+            ctx.fillRect(photoX + 20, photoY + 20, photoSize, photoSize);
+        }
+        
+        const img = userImages[0];
+        const scale = Math.max(photoSize / img.width, photoSize / img.height);
+        const sw = img.width * scale, sh = img.height * scale;
         
         ctx.save();
         ctx.beginPath();
-        if (ctx.roundRect) ctx.roundRect(offset, offset, photoSize, photoSize, 40);
-        else ctx.rect(offset, offset, photoSize, photoSize);
+        if (ctx.roundRect) ctx.roundRect(photoX, photoY, photoSize, photoSize, 40);
+        else ctx.rect(photoX, photoY, photoSize, photoSize);
         ctx.clip();
-        ctx.drawImage(userImage, offset + (photoSize - sw) / 2, offset + (photoSize - sh) / 2, sw, sh);
+        ctx.drawImage(img, photoX + (photoSize - sw) / 2, photoY + (photoSize - sh) / 2, sw, sh);
         ctx.restore();
 
-        const wavePadding = 25;
-        const waveX = offset - wavePadding;
-        const waveY = offset - wavePadding;
-        const waveSize = photoSize + (wavePadding * 2);
-
-        drawWavyRect(waveX, waveY, waveSize, waveSize, 12, 0.04, COLORS.gold, 6);
-        drawWavyRect(waveX - 12, waveY - 12, waveSize + 24, waveSize + 24, 8, 0.05, COLORS.pink, 3);
-
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)'; 
-        ctx.font = '600 36px "Caveat", cursive'; 
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-
-        ctx.fillText("LLM", w / 2, margin / 2);
-        ctx.fillText("Transformer", w / 4 + 20, margin / 2);
-        ctx.fillText("Neural Net", (w / 4) * 3 - 20, margin / 2);
-
-        ctx.save();
-        ctx.translate(margin / 2, h / 2); ctx.rotate(-Math.PI / 2);
-        ctx.fillText("Gradient", 0, 0); ctx.fillText("Backpropagation", -220, 0); ctx.fillText("Attention", 220, 0);
-        ctx.restore();
-
-        ctx.save();
-        ctx.translate(w - (margin / 2), h / 2); ctx.rotate(Math.PI / 2);
-        ctx.fillText("Tensors", 0, 0); ctx.fillText("Epoch", -220, 0); ctx.fillText("Generative", 220, 0);
-        ctx.restore();
-
-        ctx.textBaseline = 'alphabetic'; 
-        ctx.fillStyle = COLORS.gold; ctx.font = 'bold 60px serif'; ctx.fillText('HACKER HOUSE', w / 2, h - 70); 
-        ctx.fillStyle = COLORS.pink; ctx.font = 'bold 30px sans-serif'; ctx.fillText('GOA, INDIA', w / 2, h - 30); 
-
-      } else {
-        ctx.fillStyle = COLORS.bg; ctx.fillRect(0, 0, w, h);
-        ctx.strokeStyle = COLORS.gold; ctx.lineWidth = 15; ctx.strokeRect(40, 40, w - 80, h - 80);
-        ctx.strokeStyle = COLORS.pink; ctx.lineWidth = 4; ctx.strokeRect(60, 60, w - 120, h - 120);
-
-        drawWaves(200, 'rgba(253, 224, 71, 0.2)'); drawWaves(1200, 'rgba(253, 224, 71, 0.2)');
-        
-        ctx.fillStyle = COLORS.pink; ctx.beginPath(); ctx.arc(150, 250, 20, 0, Math.PI * 2); ctx.fill();
-        ctx.beginPath(); ctx.arc(800, 1250, 30, 0, Math.PI * 2); ctx.fill();
-        ctx.fillStyle = COLORS.gold; ctx.beginPath(); ctx.arc(750, 180, 15, 0, Math.PI * 2); ctx.fill();
-        ctx.beginPath(); ctx.arc(200, 1300, 25, 0, Math.PI * 2); ctx.fill();
-
-        drawCross(800, 350, 20, COLORS.white); drawCross(200, 1100, 20, COLORS.white);
-
-        const photoSize = 400, photoX = (w - photoSize) / 2, photoY = 220;
-        ctx.fillStyle = COLORS.pink; ctx.fillRect(photoX + 20, photoY + 20, photoSize, photoSize);
-        
-        const scale = Math.max(photoSize / userImage.width, photoSize / userImage.height);
-        const sw = userImage.width * scale, sh = userImage.height * scale;
-        
-        ctx.save();
-        ctx.beginPath(); ctx.rect(photoX, photoY, photoSize, photoSize); ctx.clip();
-        ctx.drawImage(userImage, photoX + (photoSize - sw) / 2, photoY + (photoSize - sh) / 2, sw, sh);
-        ctx.restore();
-
-        ctx.strokeStyle = COLORS.gold; ctx.lineWidth = 10; ctx.strokeRect(photoX, photoY, photoSize, photoSize);
+        ctx.strokeStyle = THEME.yellow; ctx.lineWidth = 6;
+        if (ctx.roundRect) {
+            ctx.beginPath(); ctx.roundRect(photoX, photoY, photoSize, photoSize, 40); ctx.stroke();
+        } else {
+            ctx.strokeRect(photoX, photoY, photoSize, photoSize);
+        }
 
         const name = (document.getElementById('name').value || 'YOUR NAME').toUpperCase();
-        const role = (document.getElementById('role').value || 'ROLE / STACK').toUpperCase();
+        const team = (document.getElementById('team').value || 'TEAM NAME').toUpperCase();
+        const stack = (document.getElementById('stack').value || 'TECH STACK').toUpperCase();
         const title = (document.getElementById('title').value || 'ID: 123 456 789').toUpperCase();
 
         ctx.textAlign = 'center';
-        const maxTextWidth = w - 160; 
+        const maxTextWidth = w - 240; 
+        let currentY = photoY + photoSize + 100;
+        
+        ctx.fillStyle = THEME.white; 
+        fillTextAutoFit(ctx, name, w / 2, currentY, maxTextWidth, 75, "900", "Playfair Display");
+        
+        currentY += 75;
+        ctx.fillStyle = THEME.yellow; 
+        fillTextAutoFit(ctx, team, w / 2, currentY, maxTextWidth, 45, "bold", "Space Grotesk");
+        
+        currentY += 60;
+        ctx.fillStyle = THEME.lightGreen; 
+        fillTextAutoFit(ctx, stack, w / 2, currentY, maxTextWidth, 35, "bold", "Space Grotesk");
 
-        ctx.fillStyle = COLORS.white; fillTextAutoFit(ctx, name, w / 2, photoY + photoSize + 110, maxTextWidth, 70, "bold");
-        ctx.fillStyle = COLORS.gold; fillTextAutoFit(ctx, role, w / 2, photoY + photoSize + 170, maxTextWidth, 40, "bold");
-        ctx.fillStyle = COLORS.pink; fillTextAutoFit(ctx, title, w / 2, photoY + photoSize + 220, maxTextWidth, 30, "bold");
+        currentY += 70;
+        ctx.fillStyle = THEME.white; 
+        fillTextAutoFit(ctx, title, w / 2, currentY, maxTextWidth, 25, "normal", "Space Grotesk");
 
-        ctx.strokeStyle = COLORS.white; ctx.lineWidth = 2; ctx.beginPath();
-        ctx.moveTo(w/2 - 150, photoY + photoSize + 270); ctx.lineTo(w/2 + 150, photoY + photoSize + 270); ctx.stroke();
+        currentY += 50;
+        ctx.strokeStyle = 'rgba(253,224,71,0.4)'; ctx.lineWidth = 1.5; ctx.beginPath();
+        ctx.moveTo(w/2 - 250, currentY); ctx.lineTo(w/2 + 250, currentY); ctx.stroke();
 
-        ctx.fillStyle = COLORS.gold; ctx.font = '40px sans-serif'; ctx.fillText('GOA, INDIA', w / 2, h - 350);
-        ctx.font = 'bold 120px serif'; ctx.fillText('HACKER', w / 2, h - 230); ctx.fillText('HOUSE', w / 2, h - 130);
-        ctx.fillStyle = COLORS.pink; ctx.font = 'bold 90px sans-serif'; ctx.fillText('गोवा', w / 2, h - 180);
-        ctx.fillStyle = COLORS.gold; ctx.font = '35px sans-serif'; ctx.fillText('28 - 31 OCT 2026', w / 2, h - 60);
+        currentY += 40;
+        const barcodeWidth = 450;
+        drawArtificialBarcode(ctx, w/2 - barcodeWidth/2, currentY, barcodeWidth, 80, THEME.white);
+
+        ctx.fillStyle = THEME.yellow; ctx.font = '30px "Space Grotesk"'; ctx.fillText('GOA, INDIA', w / 2, h - 340);
+        
+        drawOverlappingTitle(ctx, w, h, h - 210);
+        
+        ctx.fillStyle = THEME.lightGreen; ctx.font = 'bold 30px "Space Grotesk"'; ctx.fillText('28 - 31 OCT 2026', w / 2, h - 30);
       }
     }
 
     function downloadImage() {
-      if (!userImage) return alert("Upload a photo first.");
+      if (userImages.length === 0) return alert("Upload assets first.");
       const link = document.createElement('a');
-      link.download = currentFormat === 'A' ? 'HH_Goa_Frame.png' : 'HH_Goa_ID_Card.png';
+      link.download = currentFormat === 'A' ? 'HH_Goa_Trio.png' : 'HH_Goa_ID_Card.png';
       link.href = canvas.toDataURL('image/png');
       link.click();
     }
 
     function shareToX() {
-      if (!userImage) return alert("Upload a photo first.");
-      const text = encodeURIComponent("Ready for HH Goa 2026! #FrameInGoa");
-      window.open(`https://x.com/intent/tweet?text=${text}`, '_blank');
+      if (userImages.length === 0) return alert("Upload assets first.");
+      window.open(`https://x.com/intent/tweet?text=${encodeURIComponent("Code hard, Vibe harder! 🌴🚀 Ready for HH Goa 2026. #FrameInGoa")}`, '_blank');
     }
 
     document.fonts.ready.then(() => { drawCanvas(); });
